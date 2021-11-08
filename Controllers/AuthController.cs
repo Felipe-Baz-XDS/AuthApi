@@ -1,10 +1,6 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using teste.Models;
 using teste.Repository;
 using teste.Services;
 using teste.ViewModel;
@@ -13,7 +9,7 @@ namespace teste.Controllers
 {
     [ApiController]
     [Authorize]
-    [Route("api/[controller]")]
+    [Route("api/v1/[controller]")]
     public class AuthController : ControllerBase
     {
         [HttpPost]
