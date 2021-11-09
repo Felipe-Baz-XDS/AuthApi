@@ -7,7 +7,6 @@ using Microsoft.EntityFrameworkCore;
 using Swashbuckle.AspNetCore.Annotations;
 using teste.Data;
 using teste.Models;
-using teste.Repository;
 using teste.Services;
 using teste.ViewModel;
 

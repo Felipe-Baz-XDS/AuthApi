@@ -1,6 +1,4 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -92,9 +90,10 @@ namespace teste.Controllers
                 await _context.SaveChangesAsync();
                 return Created(uri:"v1/clients/{client.Id}", client);
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                return BadRequest();
+                var errorResponse = ErrorResponse.From(e);
+                return StatusCode(500, errorResponse);
             }
         }
 
