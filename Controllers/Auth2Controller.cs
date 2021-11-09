@@ -49,7 +49,7 @@ namespace teste.Controllers
 
         [HttpGet]
         [Authorize(Roles = "manager")]
-        public async Task<ActionResult> GetUsersAsync()
+        public async Task<IActionResult> GetUsersAsync()
         {
             var users = await _context
                 .Users
@@ -61,7 +61,7 @@ namespace teste.Controllers
         [HttpGet]
         [Route("{id}")]
         [Authorize(Roles = "manager")]
-        public async Task<ActionResult> GetUserByIdAsync([FromRoute] int id)
+        public async Task<IActionResult> GetUserByIdAsync([FromRoute] int id)
         {
             var user = await _context
                 .Users
@@ -76,7 +76,7 @@ namespace teste.Controllers
 
         [HttpPost]
         [Authorize(Roles = "manager")]
-        public async Task<ActionResult> PostAsync([FromBody] CreateUserViewModel model){
+        public async Task<IActionResult> PostAsync([FromBody] CreateUserViewModel model){
             if(!ModelState.IsValid)
                 return BadRequest();
             
@@ -108,7 +108,7 @@ namespace teste.Controllers
         [HttpPut]
         [Route("{id}")]
         [Authorize(Roles = "manager")]
-        public async Task<ActionResult> PutAsync(
+        public async Task<IActionResult> PutAsync(
             [FromBody] CreateUserViewModel model,
             [FromRoute] int id
         ){
@@ -146,7 +146,7 @@ namespace teste.Controllers
         [HttpDelete]
         [Route("{id}")]
         [Authorize(Roles = "manager")]
-        public async Task<ActionResult> DeleteAsync(
+        public async Task<IActionResult> DeleteAsync(
             [FromRoute] int id
         ){
             var user = await _context
