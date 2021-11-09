@@ -26,7 +26,7 @@ namespace teste.Controllers
         }
 
         [HttpGet]
-        [AllowAnonymous]
+        [Authorize(Roles = "employee,manager")]
         public async Task<IActionResult> GetClientAsync()
         {
             var clients = await _context
@@ -38,7 +38,7 @@ namespace teste.Controllers
         
         [HttpGet]
         [Route("{id}")]
-        [AllowAnonymous]
+        [Authorize(Roles = "employee,manager")]
         public async Task<IActionResult> GetClientById([FromRoute] int id)
         {
             var client = await _context
@@ -53,7 +53,7 @@ namespace teste.Controllers
         }
 
         [HttpPost]
-        [AllowAnonymous]
+        [Authorize(Roles = "employee,manager")]
         public async Task<IActionResult> PostAsync([FromBody] CreateClientViewModel model)
         {
             if(!ModelState.IsValid)
@@ -90,7 +90,7 @@ namespace teste.Controllers
 
         [HttpPut]
         [Route("{id}")]
-        [AllowAnonymous]
+        [Authorize(Roles = "employee,manager")]
         public async Task<IActionResult> PutAsync(
             [FromBody] CreateClientViewModel model,
             [FromRoute] int id
@@ -133,7 +133,7 @@ namespace teste.Controllers
 
         [HttpDelete]
         [Route("{id}")]
-        [AllowAnonymous]
+        [Authorize(Roles = "employee,manager")]
         public async Task<IActionResult> DeleteAsync(
             [FromRoute] int id
         ){
