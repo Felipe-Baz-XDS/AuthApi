@@ -1,8 +1,10 @@
 using System;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Swashbuckle.AspNetCore.Annotations;
 using teste.Data;
 using teste.Models;
 using teste.Repository;
@@ -14,6 +16,7 @@ namespace teste.Controllers
     [ApiController]
     [Authorize]
     [Route("api/v2/[controller]")]
+    [Produces("application/json")]
     public class Auth2Controller : ControllerBase
     {
 
@@ -26,6 +29,7 @@ namespace teste.Controllers
 
         [HttpPost]
         [Route("login")]
+        [SwaggerOperation(Summary="Gera token de auth do usuario v2")] 
         [AllowAnonymous]
         public async Task<dynamic> Authenticate([FromBody] LoginView model)
         {
@@ -48,6 +52,7 @@ namespace teste.Controllers
         }
 
         [HttpGet]
+        [SwaggerOperation(Summary="Mostra a lista de users")] 
         [Authorize(Roles = "manager")]
         public async Task<IActionResult> GetUsersAsync()
         {
@@ -60,6 +65,7 @@ namespace teste.Controllers
 
         [HttpGet]
         [Route("{id}")]
+        [SwaggerOperation(Summary="Mostra a 1 user escolhido pelo Id")] 
         [Authorize(Roles = "manager")]
         public async Task<IActionResult> GetUserByIdAsync([FromRoute] int id)
         {
@@ -73,9 +79,14 @@ namespace teste.Controllers
 
             return Ok(user);
         }
-
+        
+        /// <response code="201">Returns the newly created item</response>
+        /// <response code="400">If the item is null</response>
         [HttpPost]
+        [SwaggerOperation(Summary="Adiciona user")]  
         [Authorize(Roles = "manager")]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> PostAsync([FromBody] CreateUserViewModel model){
             if(!ModelState.IsValid)
                 return BadRequest();
@@ -107,6 +118,7 @@ namespace teste.Controllers
 
         [HttpPut]
         [Route("{id}")]
+        [SwaggerOperation(Summary="Edita user")]  
         [Authorize(Roles = "manager")]
         public async Task<IActionResult> PutAsync(
             [FromBody] CreateUserViewModel model,
@@ -145,6 +157,7 @@ namespace teste.Controllers
 
         [HttpDelete]
         [Route("{id}")]
+        [SwaggerOperation(Summary="Deleta user")]  
         [Authorize(Roles = "manager")]
         public async Task<IActionResult> DeleteAsync(
             [FromRoute] int id

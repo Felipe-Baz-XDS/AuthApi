@@ -82,4 +82,3 @@
 /home/felipe/Desktop/teste/bin/Debug/net5.0/System.Net.Http.Extensions.dll
 /home/felipe/Desktop/teste/bin/Debug/net5.0/System.Net.Http.Primitives.dll
 /home/felipe/Desktop/teste/bin/Debug/net5.0/Refit.dll
-/home/felipe/Desktop/teste/obj/Debug/net5.0/teste.csproj.CopyComplete

@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -30,7 +31,23 @@ namespace teste
 
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "teste", Version = "v1" });
+                c.SwaggerDoc("v1", new OpenApiInfo 
+                { 
+                    Version = "v1",
+                    Title = "Web Api Auth",
+                    Description = "An ASP.NET Core Web API for managing users and clients",
+                    TermsOfService = new Uri("https://example.com/terms"),
+                    Contact = new OpenApiContact
+                    {
+                        Name = "Felipe Baz XDS",
+                        Url = new Uri("https://github.com/Felipe-Baz-XDS")
+                    },
+                    License = new OpenApiLicense
+                    {
+                        Name = "MIT licence",
+                        Url = new Uri("https://opensource.org/licenses/MIT")
+                    }
+                });
                 c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
                 {
                     Description = @"JWT Authorization header using the Bearer scheme. \r\n\r\n 

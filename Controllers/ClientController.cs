@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Swashbuckle.AspNetCore.Annotations;
 using teste.Data;
 using teste.Models;
 using teste.Services;
@@ -15,6 +17,7 @@ namespace teste.Controllers
     [ApiController]
     [Authorize]
     [Route("api/v1/[controller]")]
+    [Produces("application/json")]
     public class ClientController : ControllerBase
     {
         private AppDbContext _context;
@@ -27,6 +30,7 @@ namespace teste.Controllers
 
         [HttpGet]
         [Authorize(Roles = "employee,manager")]
+        [SwaggerOperation(Summary="Mostra a lista de clients")] 
         public async Task<IActionResult> GetClientAsync()
         {
             var clients = await _context
@@ -38,6 +42,7 @@ namespace teste.Controllers
         
         [HttpGet]
         [Route("{id}")]
+        [SwaggerOperation(Summary="Mostra a 1 client escolhido pelo Id")] 
         [Authorize(Roles = "employee,manager")]
         public async Task<IActionResult> GetClientById([FromRoute] int id)
         {
@@ -52,8 +57,13 @@ namespace teste.Controllers
             return Ok(client);
         }
 
+        /// <response code="201">Returns the newly created item</response>
+        /// <response code="400">If the item is null</response>
         [HttpPost]
         [Authorize(Roles = "employee,manager")]
+        [SwaggerOperation(Summary="Adiciona client")] 
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> PostAsync([FromBody] CreateClientViewModel model)
         {
             if(!ModelState.IsValid)
@@ -90,6 +100,7 @@ namespace teste.Controllers
 
         [HttpPut]
         [Route("{id}")]
+        [SwaggerOperation(Summary="Edita client")] 
         [Authorize(Roles = "employee,manager")]
         public async Task<IActionResult> PutAsync(
             [FromBody] CreateClientViewModel model,
@@ -133,6 +144,7 @@ namespace teste.Controllers
 
         [HttpDelete]
         [Route("{id}")]
+        [SwaggerOperation(Summary="Deleta client")] 
         [Authorize(Roles = "employee,manager")]
         public async Task<IActionResult> DeleteAsync(
             [FromRoute] int id
